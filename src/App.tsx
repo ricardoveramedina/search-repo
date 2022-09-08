@@ -1,27 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-//import GitHubRepo from './services/GitHubRepo';
+import React, { useEffect, useState } from 'react';
+import Repositories from './controller/Repositories';
+import Main from './views/Main';
+import { repoColumns } from './components/molecules/DataTable/repoColumns';
+import { IDataTableRepo } from './Interfaces/IDataTableRepo';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+const repo = new Repositories();
+
 function App() {
+  const [rows, setRows] = useState<IDataTableRepo[] | []>([]);
+  const response = async () => {
+    const res: any = await repo.search('vs code', 'VS code');
+    setRows(res);
+    return res;
+  };
+
+  useEffect(() => {
+    console.log('use effect');
+    response();
+    return () => {};
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Main rows={rows} columnsDefinition={repoColumns} />
+    </ThemeProvider>
   );
+
+  /*   return (
+    <div className="App">
+      <div className="main">
+        <div style={{ flexGrow: 1 }}>
+          <Main rows={rows} columnsDefinition={repoColumns} />
+        </div>
+      </div>
+    </div>
+  ); */
 }
 
 export default App;
