@@ -1,50 +1,57 @@
 import React, { useEffect, useState } from 'react';
 import Repositories from './controller/Repositories';
 import Main from './views/Main';
-import { repoColumns } from './components/molecules/DataTable/repoColumns';
+import { IPageNavigation } from './Interfaces/IPageNavigation';
 import { IDataTableRepo } from './Interfaces/IDataTableRepo';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
-const repo = new Repositories();
+const perPage = 10;
+const repo = new Repositories(perPage);
 
 function App() {
-  const [rows, setRows] = useState<IDataTableRepo[] | []>([]);
-  const response = async () => {
-    const res: any = await repo.search('vs code', 'VS code');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>('');
+  const [rows, setRows] = useState<IDataTableRepo | undefined>(undefined);
+  const [page, setPage] = useState<number>(1);
+  const callSearch = async (page: number, searchText: string) => {
+    setLoading(true);
+    const res: any = await repo.search(page, searchText, searchText);
     setRows(res);
-    return res;
+    setLoading(false);
+  };
+
+  const searchHandler = (value: string) => {
+    console.log('searching:', value);
+    setSearchText(value);
+  };
+
+  const currentPageHandler = (value: IPageNavigation) => {
+    //console.log('App currentPageHandler', value);
+    let currentPage = page;
+    if (value === IPageNavigation.NEXT) {
+      currentPage = page + 1;
+      setPage(currentPage);
+      return currentPage;
+    } else {
+      currentPage = page - 1;
+      setPage(currentPage);
+      return currentPage;
+    }
   };
 
   useEffect(() => {
-    console.log('use effect');
-    response();
+    searchText.length > 0 ? callSearch(page, searchText) : setRows(undefined);
     return () => {};
-  }, []);
+  }, [page, searchText]);
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Main rows={rows} columnsDefinition={repoColumns} />
-    </ThemeProvider>
+    <Main
+      rows={rows}
+      currentPageHandler={currentPageHandler}
+      loading={loading}
+      searchHandler={searchHandler}
+    />
   );
-
-  /*   return (
-    <div className="App">
-      <div className="main">
-        <div style={{ flexGrow: 1 }}>
-          <Main rows={rows} columnsDefinition={repoColumns} />
-        </div>
-      </div>
-    </div>
-  ); */
 }
 
 export default App;

@@ -32,32 +32,31 @@ export default class GitHubRepo {
       },
     });
   }
-  //async getUsers(): Promise<OctokitResponse> {
+
   async getUsers() {
     const result = await this.octokit.request('/user');
     console.log('result', result);
     return result;
   }
-  async searchRepo(searchDescription: string, name?: string) {
+  async searchRepo(
+    searchDescription: string,
+    name?: string,
+    page?: number,
+    per_page?: number
+  ) {
     console.log('searchRepo called');
     let q = '';
     q += name && `${name} in:name `;
     q += searchDescription && `${searchDescription} in:description `;
-    //q += `&sort=stars&order=desc`
 
     const result = await this.octokit.request('GET /search/repositories', {
       q,
       sort: 'stars',
       direction: 'desc',
+      page,
+      per_page,
     });
-
-    /* const result = this.octokit.request('GET /repos/{owner}/{repo}/issues', {
-      owner: 'octocat',
-      repo: 'Spoon-Knife',
-      per_page: 2,
-      sort: 'updated',
-      direction: 'asc',
-    }); */
+    console.log(result);
     return result;
   }
 }

@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+.search{  
+    min-width: 60vw;  
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+    grid-row: 2;
+}
+
+input::-webkit-input-placeholder {
+    
+    text-align:right;
+    font-family: 'Material Icons Outlined';
+ 
+}
+
+input::-moz-placeholder  {
+    text-align:right;
+    font-family: 'Material Icons Outlined';
+}
+
+input:-ms-input-placeholder {
+    text-align:right;
+    font-family: 'Material Icons Outlined';
+}
+
+input:-moz-placeholder {
+    text-align:right;
+    font-family: 'Material Icons Outlined';
+}
+
+input{
+    border-radius: 5px;
+    border: none;    
+    padding: 0.5em 1em;    
+}
+

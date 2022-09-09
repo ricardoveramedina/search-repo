@@ -1,0 +1,21 @@
+.button{
+    height: 50px;
+    width: 50px;    
+    border: 0px;
+    //margin: auto 0;
+    border-radius: 50%;
+    background-color: transparent;    
+    display: flex; /* or inline-flex */
+    align-items: center; 
+    justify-content: center;
+    transition: color 1s ease;
+    transition: background 0.5s ease;    
+    &.enabled:hover {
+        background-color: #d5d5d5;
+    }
+}
+.icon{
+    width: 50px; 
+    height: 50px;
+    filter: invert(100%) sepia(0%) saturate(1043%) hue-rotate(116deg) brightness(108%) contrast(100%);
+}

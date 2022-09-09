@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "@mui/material": "^5.10.3",
-    "@mui/x-data-grid": "^5.17.0",
-    "@mui/x-data-grid-generator": "^5.17.1",
     "@octokit/core": "^4.0.5",
     "@octokit/plugin-throttling": "^4.3.0",
     "@testing-library/jest-dom": "^5.16.5",

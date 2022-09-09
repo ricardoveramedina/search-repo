@@ -1,40 +1,7 @@
-/* import { MockExperienceRepo } from '../mocks/mockExperienceRepo';
-import { ExperienceController } from '../controllers/ExperienceController';
-
-let experienceController: ExperienceController;
-
-interface Res {
-  status?: jest.Mock;
-  send?: jest.Mock;
-}
-
-const mockResponse = () => {
-  const res: Res = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.send = jest.fn().mockReturnValue(res);
-  return res;
-};
-
-beforeEach(() => {
-  experienceController = new ExperienceController(new MockExperienceRepo());
-});
-
-*/
 import GitHubRepo from './GitHubRepo';
 //const GIT_TOKEN: string = process.env.REACT_APP_GIT_TOKEN as string;
 const GIT_TOKEN = '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';
 const githubRepo = new GitHubRepo(GIT_TOKEN);
-
-//beforeAll(() => jest.setTimeout(30000));
-
-test.skip('Should 200 with an empty array of experiences', async () => {
-  const test = await githubRepo.getUsers();
-  expect(2 + 2).toBe(4);
-  //expect(githubRepo.getUsers()).toHaveBeenCalledWith(200);
-  //await experienceController.handleGetExperiences(null, res);
-  //expect(res.status).toHaveBeenCalledWith(200);
-  //expect(res.send).toHaveBeenCalledWith({ experiences: [] });
-});
 
 test('search repos global', async () => {
   const response = await githubRepo.searchRepo('vs code', 'VS code');

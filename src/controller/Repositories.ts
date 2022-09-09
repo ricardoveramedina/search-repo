@@ -12,22 +12,34 @@ const GIT_TOKEN = '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';
         }; */
 export default class Repositories {
   githubRepo: GitHubRepo;
-  constructor() {
+  perPage: number;
+  constructor(perPage: number) {
     this.githubRepo = new GitHubRepo(GIT_TOKEN);
+    this.perPage = perPage;
   }
-  async search(searchDescription: string, name?: string) {
-    const response = await this.githubRepo.searchRepo(searchDescription, name);
-    console.log('response', response.data.items);
+  async search(page: number, searchDescription: string, name?: string) {
+    const response = await this.githubRepo.searchRepo(
+      searchDescription,
+      name,
+      page,
+      this.perPage
+    );
+    //console.log('response', response.data.items);
     let formated;
     if (response.data.items) {
-      formated = response.data.items.map((item) => {
+      const items = response.data.items.map((item) => {
         const container = {
           id: item.id,
           name: item.name,
           owner: item.owner?.login,
+          description: item.description,
         };
         return container;
       });
+      formated = {
+        total: response.data.total_count,
+        items,
+      };
     }
     console.log('formated', formated);
     return formated;

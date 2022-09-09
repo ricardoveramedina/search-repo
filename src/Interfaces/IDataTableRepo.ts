@@ -1,5 +1,11 @@
 export interface IDataTableRepo {
-  id: number;
-  name: string;
-  owner: string | null;
+  total: number;
+  items: [
+    {
+      id: number;
+      name: string | null;
+      owner: string | null;
+      description: string | null;
+    }
+  ];
 }
