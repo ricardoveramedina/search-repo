@@ -1,15 +1,6 @@
 import GitHubRepo from '../services/GitHubRepo';
-const GIT_TOKEN = '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';
-
-/* const container = {
-          id: item.id,
-          name: item.name,
-          owner: item.owner?.login,
-          url: item.html_url,
-          description: item.description,
-          language: item.language,
-          rate: item.stargazers_count
-        }; */
+//const GIT_TOKEN = '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';
+const GIT_TOKEN: string = process.env.REACT_APP_GIT_TOKEN as string;
 export default class Repositories {
   githubRepo: GitHubRepo;
   perPage: number;

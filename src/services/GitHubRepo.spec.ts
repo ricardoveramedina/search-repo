@@ -1,6 +1,5 @@
 import GitHubRepo from './GitHubRepo';
-//const GIT_TOKEN: string = process.env.REACT_APP_GIT_TOKEN as string;
-const GIT_TOKEN = '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';
+const GIT_TOKEN: string = process.env.REACT_APP_GIT_TOKEN as string;
 const githubRepo = new GitHubRepo(GIT_TOKEN);
 
 test.skip('search repos global', async () => {

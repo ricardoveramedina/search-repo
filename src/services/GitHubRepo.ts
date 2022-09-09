@@ -4,7 +4,7 @@ import { throttling } from '@octokit/plugin-throttling';
 export default class GitHubRepo {
   octokit: Octokit;
   constructor(token: string) {
-    //console.log('GIT_TOKEN', token);
+    console.log('GIT_TOKEN', token);
     const MyOctokit = Octokit.plugin(throttling);
     this.octokit = new MyOctokit({
       auth: token,
