@@ -44,7 +44,6 @@ export default class GitHubRepo {
     page?: number,
     per_page?: number
   ) {
-    console.log('searchRepo called');
     let q = '';
     q += name && `${name} in:name `;
     q += searchDescription && `${searchDescription} in:description `;
@@ -56,7 +55,6 @@ export default class GitHubRepo {
       page,
       per_page,
     });
-    console.log(result);
     return result;
   }
 }

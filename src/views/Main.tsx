@@ -6,6 +6,7 @@ import './styles.css';
 
 interface MainProps {
   rows: IDataTableRepo | undefined;
+  page: number;
   currentPageHandler: Function;
   searchHandler: Function;
   loading: boolean;
@@ -13,6 +14,7 @@ interface MainProps {
 
 export default function Main({
   rows,
+  page,
   currentPageHandler,
   searchHandler,
   loading,
@@ -21,15 +23,12 @@ export default function Main({
     <div className="main">
       Search a github Repository
       <SearchBar searchHandler={searchHandler} />
-      <div style={{ display: 'flex', height: '100%' }}>
-        <div style={{ flexGrow: 1 }}>
-          <DataTable
-            rows={rows}
-            currentPageHandler={currentPageHandler}
-            loading={loading}
-          />
-        </div>
-      </div>
+      <DataTable
+        rows={rows}
+        page={page}
+        currentPageHandler={currentPageHandler}
+        loading={loading}
+      />
     </div>
   );
 }

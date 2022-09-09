@@ -13,7 +13,18 @@ function App() {
   const [searchText, setSearchText] = useState<string>('');
   const [rows, setRows] = useState<IDataTableRepo | undefined>(undefined);
   const [page, setPage] = useState<number>(1);
-  const callSearch = async (page: number, searchText: string) => {
+  const [movingPage, setMovingPage] = useState<boolean>(false);
+
+  const callSearch = async (currentPage: number, searchText: string) => {
+    console.log('callSearch current page', currentPage);
+    setLoading(true);
+    const res: any = await repo.search(currentPage, searchText, searchText);
+    setRows(res);
+    setLoading(false);
+  };
+
+  const callNextPage = async (page: number) => {
+    console.log('callNextPage current page', page);
     setLoading(true);
     const res: any = await repo.search(page, searchText, searchText);
     setRows(res);
@@ -21,32 +32,47 @@ function App() {
   };
 
   const searchHandler = (value: string) => {
-    console.log('searching:', value);
+    //console.log('searching:', value);
     setSearchText(value);
   };
 
   const currentPageHandler = (value: IPageNavigation) => {
-    //console.log('App currentPageHandler', value);
     let currentPage = page;
     if (value === IPageNavigation.NEXT) {
       currentPage = page + 1;
+      setMovingPage(true);
       setPage(currentPage);
       return currentPage;
     } else {
       currentPage = page - 1;
+      setMovingPage(true);
       setPage(currentPage);
       return currentPage;
     }
   };
 
   useEffect(() => {
-    searchText.length > 0 ? callSearch(page, searchText) : setRows(undefined);
+    setPage(1);
+    if (searchText.length > 0) {
+      callSearch(1, searchText);
+    } else {
+      setRows(undefined);
+    }
     return () => {};
-  }, [page, searchText]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchText]);
+
+  useEffect(() => {
+    searchText.length > 0 && movingPage && callNextPage(page);
+    setMovingPage(false);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, movingPage]);
 
   return (
     <Main
       rows={rows}
+      page={page}
       currentPageHandler={currentPageHandler}
       loading={loading}
       searchHandler={searchHandler}

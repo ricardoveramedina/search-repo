@@ -3,12 +3,23 @@
     width: 60vw;
     //background-color: #FFFFFF
 
+    &.disable{
+        color: #cac9c9
+    }
+
     table {
         width: 60vw;
         border:none;
         border-collapse: collapse;
     }
+    th {padding: 1em 1em;}
+
+    table th {
+        font-size: 25px;        
+    }
     table td {
+        font-size: 20px;
+        padding-bottom: 20px;
         border-bottom: 1px solid #FFFFFF;
     }
     table td:first-child {
@@ -17,4 +28,17 @@
     table td:last-child {
         border-right: none;
     }
+}
+.loading{
+    width:50px;
+    position:absolute;
+    top: 40vh;
+    left: 45vw;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+.buttons{
+    display: flex;
 }

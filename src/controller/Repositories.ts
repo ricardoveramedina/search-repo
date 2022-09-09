@@ -24,7 +24,6 @@ export default class Repositories {
       page,
       this.perPage
     );
-    //console.log('response', response.data.items);
     let formated;
     if (response.data.items) {
       const items = response.data.items.map((item) => {
@@ -33,6 +32,7 @@ export default class Repositories {
           name: item.name,
           owner: item.owner?.login,
           description: item.description,
+          rate: item.stargazers_count,
         };
         return container;
       });
@@ -41,7 +41,6 @@ export default class Repositories {
         items,
       };
     }
-    console.log('formated', formated);
     return formated;
   }
 }

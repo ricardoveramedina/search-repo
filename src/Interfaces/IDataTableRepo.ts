@@ -6,6 +6,7 @@ export interface IDataTableRepo {
       name: string | null;
       owner: string | null;
       description: string | null;
+      rate: number;
     }
   ];
 }
