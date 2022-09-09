@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Repositories from './controller/Repositories';
 import Main from './views/Main';
 import { IPageNavigation } from './Interfaces/IPageNavigation';
@@ -16,7 +16,6 @@ function App() {
   const [movingPage, setMovingPage] = useState<boolean>(false);
 
   const callSearch = async (currentPage: number, searchText: string) => {
-    console.log('callSearch current page', currentPage);
     setLoading(true);
     const res: any = await repo.search(currentPage, searchText, searchText);
     setRows(res);
@@ -24,17 +23,13 @@ function App() {
   };
 
   const callNextPage = async (page: number) => {
-    console.log('callNextPage current page', page);
     setLoading(true);
     const res: any = await repo.search(page, searchText, searchText);
     setRows(res);
     setLoading(false);
   };
 
-  const searchHandler = (value: string) => {
-    //console.log('searching:', value);
-    setSearchText(value);
-  };
+  const searchHandler = (value: string) => setSearchText(value);
 
   const currentPageHandler = (value: IPageNavigation) => {
     let currentPage = page;

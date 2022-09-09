@@ -1,8 +1,6 @@
 .main{
     height: 80vh; 
     width: 60vw;
-    //background-color: #FFFFFF
-
     &.disable{
         color: #cac9c9
     }
@@ -15,7 +13,7 @@
     th {padding: 1em 1em;}
 
     table th {
-        font-size: 25px;        
+        font-size: 25px;
     }
     table td {
         font-size: 20px;
